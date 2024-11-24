@@ -25,43 +25,95 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2<0)
+			for (int i=0; i>x2;i--)			//more elegant solution mabey minus(x1, Math.abs(x2)), dont know if its allowed
+				x1--;
+		else
+			for (int i=0; i<x2; i++)
+				x1++;
+		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2<0)
+			for (int i=0; i>x2; i--)		//same here
+				x1++;
+		else
+			for (int i=0; i<x2; i++)
+				x1--;
+		return x1;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x1==0 || x2==0)
+			return 0;
+		int toAdd = x1;
+		int numOfTimes = x2;
+		if (x2<0)
+			numOfTimes = minus(0, x2);
+		for (int i=1; i<numOfTimes; i++)
+			x1=plus(x1, toAdd);
+		if (x2<0)
+			return minus(0, x1);
+		return x1;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		// Replace the following statement with your code
-		return 0;
+		if (n==0)
+			return 1;
+		int toMul = x;
+		for (int i=1; i<n; i++)
+			x=times(x, toMul);
+		return x;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x1 == 0)
+			return 0;
+		int count = 0;
+		int n = x1;
+		int m = x2;
+		if (x1<0)
+			n = minus(0, n);
+		if (x2<0)
+			m = minus(0, m);
+		for (int i=1; times(m, i)<=n; i++)
+			count++;
+		if ((x1>0 && x2<0) || (x1<0 && x2>0))
+			return minus(0, count);
+		return count;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x1==0)
+			return 0;
+		return minus(x1, times(x2, div(x1, x2)));
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
+		if (x==0)
+			return 0;
+		if (x==1)
+			return 1;
+		int ceiling = x;
+		int num = div(x, 2);
+		int tempNum;
+		while (!((times(num, num)<=x) && (times(plus(num, 1), plus(num, 1))>x))) {
+			tempNum = num;
+			if (times(num, num)>x){
+				num = div(num, 2);
+				ceiling = tempNum;
+			}
+			else
+				num = div(plus(num, ceiling), 2);
+			
+		}
+		return num;
 	}	  	  
 }
